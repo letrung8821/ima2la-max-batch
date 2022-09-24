@@ -62,7 +62,8 @@ class Trainer(object):
                         2**avg_loss
                     ))
                     wandb.log({
-                        "train_avg_loss": avg_loss,
+                        "epoch": self.epoch,
+                        "train_loss": avg_loss,
                         "train_perplexity": 2**avg_loss,
                     })
                     losses = 0.0
@@ -115,7 +116,8 @@ class Trainer(object):
                 self.epoch, avg_loss, 2**avg_loss
             ))
             wandb.log({
-                "val_avg_loss": avg_loss,
+                "epoch": self.epoch,
+                "val_loss": avg_loss,
                 "val_perplexity": 2**avg_loss,
             })
         if avg_loss < self.best_val_loss:
