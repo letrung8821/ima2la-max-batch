@@ -5,7 +5,7 @@ import argparse
 from PIL import Image
 from torchvision import transforms
 import torch
-
+from tqdm import tqdm
 
 def preprocess(data_dir, split):
     assert split in ["train", "validate", "test"]
@@ -21,7 +21,7 @@ def preprocess(data_dir, split):
     pairs = []
     transform = transforms.ToTensor()
     with open(split_file, 'r') as f:
-        for line in f:
+        for line in tqdm(f, desc='Generating {} data'.format(split)):
             img_name, formula_id = line.strip('\n').split()
             # load img and its corresponding formula
             img_path = join(images_dir, img_name)
@@ -47,8 +47,14 @@ if __name__ == "__main__":
         description="Im2Latex Data Preprocess Program")
     parser.add_argument("--data_path", type=str,
                         default="./data/", help="The dataset's dir")
+    parser.add_argument("-t", "--type_dataset", type=str,
+                        default="all", help="Type of dataset to create pkl")
     args = parser.parse_args()
 
-    splits = ["validate", "test", "train"]
+    if args.type_dataset == "all":
+        splits = ["validate", "test", "train"]
+    else:
+        splits = [args.type_dataset]
+
     for s in splits:
         preprocess(args.data_path, s)

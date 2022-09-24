@@ -3,3 +3,4 @@ __pycache__
 test.py
 data/formula_images_processed
 *.pkl
+wandb/*
