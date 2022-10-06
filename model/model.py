@@ -36,6 +36,7 @@ class Im2LatexModel(nn.Module):
             nn.MaxPool2d((2, 1), (2, 1), 0),
 
             nn.Conv2d(256, enc_out_dim, 3, 1, 0),
+            nn.BatchNorm2d(enc_out_dim)
             nn.ReLU()
         )
 
