@@ -18,16 +18,20 @@ class Im2LatexModel(nn.Module):
 
         self.cnn_encoder = nn.Sequential(
             nn.Conv2d(3, 64, 3, 1, 1),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(2, 2, 1),
 
             nn.Conv2d(64, 128, 3, 1, 1),
+            nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.MaxPool2d(2, 2, 1),
 
             nn.Conv2d(128, 256, 3, 1, 1),
+            nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.Conv2d(256, 256, 3, 1, 1),
+            nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.MaxPool2d((2, 1), (2, 1), 0),
 
